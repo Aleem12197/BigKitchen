@@ -1,0 +1,107 @@
+
+<%@ page import="java.sql.*"  %>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/bs_leftnavi.css">
+<script src="js/bs_leftnavi.js"></script>
+<title>Accordion</title>
+</head>
+<body>
+<div class="gw-sidebar">
+  <div id="gw-sidebar" class="gw-sidebar">
+    <div class="nano-content">
+      <ul class="gw-nav gw-nav-list">
+        <li class="init-un-active"> <a href="#nava"> <span class="gw-menu-text"><center><h4>Food Menu<h4></center></span> </a> </li>
+       <% 
+try 
+{  
+Class.forName("com.mysql.jdbc.Driver");
+Connection con=DriverManager.getConnection(
+"jdbc:mysql://localhost:3306/learning","root","sweety");
+PreparedStatement pst = con.prepareStatement("select distinct(cat) from categ"); 
+ResultSet rs=pst.executeQuery(); 
+while(rs.next()){
+%> 
+ 
+<li class="init-arrow-down"> <a href="#nava1"> <span class="gw-menu-text"><%=rs.getString(1)%></span> <b class="gw-arrow"></b> </a>
+          <ul class="gw-submenu">
+<%
+PreparedStatement pst1 = con.prepareStatement("select subcat from categ where cat='"+rs.getString(1)+"'"); 
+ResultSet rs1=pst1.executeQuery();
+while(rs1.next()){
+%>
+            <li> <a id="<%=rs1.getString(1)%>" onclick="anchorjs(this.id);" href="biryani.jsp" target="display"><%=rs1.getString(1)%></a> </li>
+          <!--<li> <a href="javascript:void(0)">Dal Rice</a> </li>-->
+        
+<%
+}
+%>
+  </ul>
+        </li>
+        <!--<li class="init-arrow-down"> <a href="javascript:void(0)"> <span class="gw-menu-text">Chinese</span> <b class="gw-arrow icon-arrow-up8"></b> </a>
+          <ul class="gw-submenu">
+            <li> <a href="noodles.jsp" target="display">Noodles</a> </li>
+            <li> <a href="manchurian.jsp" target="display">Manchurian</a> </li>
+            <li> <a href="friedrice.jsp" target="display">Fried Rice</a> </li>
+          </ul>
+        </li>
+        <li class="init-arrow-down"> <a href="javascript:void(0)"> <span class="gw-menu-text">Italian</span> <b></b> </a>
+          <ul class="gw-submenu">
+            <li> <a href="javascript:void(0)">Pasta</a> </li>
+            <li> <a href="javascript:void(0)">Lasagne</a> </li>
+            <li> <a href="javascript:void(0)">Risotto</a> </li>
+          </ul>
+        </li>
+-->
+<%
+}
+con.close();
+}catch(Exception e){
+out.print(e);
+}
+%>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+function anchorjs(id){
+	alert(id);
+	var url="catsession.jsp?cat="+id;
+
+
+if(window.XMLHttpRequest){
+request=new XMLHttpRequest();
+}
+else if(window.ActiveXObject){
+request=new ActiveXObject("Microsoft.XMLHTTP");
+}
+
+try
+{
+request.onreadystatechange=getun;
+request.open("GET",url,true);
+request.send();
+}
+catch(e)
+{
+alert("Unable to connect to server");
+}
+
+	
+}
+function getun(){
+if(request.readyState==4){
+var al=request.responseText;
+alert(al);
+//location.reload(true);
+//document.getElementById(v).value="added to cart";
+}
+}
+
+</script>
+</body>
+</html>

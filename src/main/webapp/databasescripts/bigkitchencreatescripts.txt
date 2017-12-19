@@ -1,0 +1,61 @@
+ CREATE TABLE `food` (
+  `fid` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text,
+  `path` text,
+  `category` varchar(100) DEFAULT NULL,
+  `cost` int(11) DEFAULT NULL,
+  `description` text,
+  `norders` int(11) DEFAULT '0',
+  `isactive` varchar(3) DEFAULT 'yes',
+  PRIMARY KEY (`fid`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8
+
+
+
+CREATE TABLE `fuserdetails` (
+  `email` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `addr` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `fcart` (
+  `email` varchar(100) DEFAULT NULL,
+  `fid` int(11) DEFAULT NULL,
+  `dateofdel` varchar(20) DEFAULT NULL,
+  `timerange` varchar(20) DEFAULT NULL,
+  `quantity` int(11) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+
+CREATE TABLE `forder` (
+  `orderid` varchar(200) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `fid` int(11) DEFAULT NULL,
+  `dateofdel` varchar(20) DEFAULT NULL,
+  `timerange` varchar(20) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `address` text,
+  `isdelivered` varchar(3) DEFAULT NULL,
+  PRIMARY KEY (`orderid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+
+CREATE TABLE `file1` (
+  `path` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `fcomments` (
+  `fid` int(11) DEFAULT NULL,
+  `userid` varchar(100) DEFAULT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `comment` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `categ` (
+   `cat` varchar(50) DEFAULT NULL,
+   `subcat` varchar(50) DEFAULT NULL 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
